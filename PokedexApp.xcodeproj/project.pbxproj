@@ -18,12 +18,11 @@
 		4FCD4EF82C5B5F690069C295 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCD4EF72C5B5F690069C295 /* RxRelay */; };
 		4FCD4EFA2C5B5F690069C295 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCD4EF92C5B5F690069C295 /* RxSwift */; };
 		4FCD4EFD2C5B5F760069C295 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCD4EFC2C5B5F760069C295 /* SnapKit */; };
-		4FCD4EFF2C5B5F760069C295 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCD4EFE2C5B5F760069C295 /* SnapKit-Dynamic */; };
 		4FCD4F022C5B60090069C295 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCD4F012C5B60090069C295 /* Alamofire */; };
-		4FCD4F042C5B60090069C295 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCD4F032C5B60090069C295 /* AlamofireDynamic */; };
 		4FCD4F0B2C5B658E0069C295 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F0A2C5B658E0069C295 /* Pokemon.swift */; };
 		4FCD4F0D2C5B668A0069C295 /* PokemonDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F0C2C5B668A0069C295 /* PokemonDetail.swift */; };
 		4FCD4F0F2C5B7A9A0069C295 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F0E2C5B7A9A0069C295 /* MainViewModel.swift */; };
+		4FCD4F112C5B80E10069C295 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F102C5B80E10069C295 /* PokemonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +37,7 @@
 		4FCD4F0A2C5B658E0069C295 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		4FCD4F0C2C5B668A0069C295 /* PokemonDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetail.swift; sourceTree = "<group>"; };
 		4FCD4F0E2C5B7A9A0069C295 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		4FCD4F102C5B80E10069C295 /* PokemonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,9 +50,7 @@
 				4FCD4EF62C5B5F690069C295 /* RxCocoa in Frameworks */,
 				4FCD4EFA2C5B5F690069C295 /* RxSwift in Frameworks */,
 				4FCD4EF42C5B5F690069C295 /* RxBlocking in Frameworks */,
-				4FCD4F042C5B60090069C295 /* AlamofireDynamic in Frameworks */,
 				4FCD4EFD2C5B5F760069C295 /* SnapKit in Frameworks */,
-				4FCD4EFF2C5B5F760069C295 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				4FCD4EDA2C5B5B3D0069C295 /* MainViewController.swift */,
+				4FCD4F102C5B80E10069C295 /* PokemonCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,9 +153,7 @@
 				4FCD4EF72C5B5F690069C295 /* RxRelay */,
 				4FCD4EF92C5B5F690069C295 /* RxSwift */,
 				4FCD4EFC2C5B5F760069C295 /* SnapKit */,
-				4FCD4EFE2C5B5F760069C295 /* SnapKit-Dynamic */,
 				4FCD4F012C5B60090069C295 /* Alamofire */,
-				4FCD4F032C5B60090069C295 /* AlamofireDynamic */,
 			);
 			productName = PokedexApp;
 			productReference = 4FCD4ED32C5B5B3D0069C295 /* PokedexApp.app */;
@@ -220,6 +217,7 @@
 				4FCD4F0F2C5B7A9A0069C295 /* MainViewModel.swift in Sources */,
 				4FCD4F0B2C5B658E0069C295 /* Pokemon.swift in Sources */,
 				4FCD4EF12C5B5DA60069C295 /* NetworkManager.swift in Sources */,
+				4FCD4F112C5B80E10069C295 /* PokemonCell.swift in Sources */,
 				4FCD4EDB2C5B5B3D0069C295 /* MainViewController.swift in Sources */,
 				4FCD4ED72C5B5B3D0069C295 /* AppDelegate.swift in Sources */,
 				4FCD4F0D2C5B668A0069C295 /* PokemonDetail.swift in Sources */,
@@ -490,20 +488,10 @@
 			package = 4FCD4EFB2C5B5F760069C295 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		4FCD4EFE2C5B5F760069C295 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4FCD4EFB2C5B5F760069C295 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
-		};
 		4FCD4F012C5B60090069C295 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4FCD4F002C5B60090069C295 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		4FCD4F032C5B60090069C295 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4FCD4F002C5B60090069C295 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
