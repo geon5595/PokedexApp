@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
 
   private let disposeBag = DisposeBag()
   private let mainViewModel = MainViewModel()
+  private let detailViewModel = DetailViewModel()
   private var pokemon = [Pokemon]()
   
   private let pokeballImage: UIImageView = {
@@ -37,7 +38,6 @@ class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .mainRed
-    mainViewModel.fetchPokemonData()
     configureUI()
     bind()
     
@@ -81,6 +81,10 @@ extension UIColor {
 }
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    self.navigationController?.pushViewController(DetailViewController(), animated: true)
+  }
+  
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonCell.id, for: indexPath) as? PokemonCell else {
       return UICollectionViewCell()

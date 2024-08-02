@@ -23,6 +23,8 @@
 		4FCD4F0D2C5B668A0069C295 /* PokemonDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F0C2C5B668A0069C295 /* PokemonDetail.swift */; };
 		4FCD4F0F2C5B7A9A0069C295 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F0E2C5B7A9A0069C295 /* MainViewModel.swift */; };
 		4FCD4F112C5B80E10069C295 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F102C5B80E10069C295 /* PokemonCell.swift */; };
+		4FCD4F132C5BBD090069C295 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F122C5BBD090069C295 /* DetailViewController.swift */; };
+		4FCD4F152C5C97060069C295 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F142C5C97060069C295 /* DetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		4FCD4F0C2C5B668A0069C295 /* PokemonDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetail.swift; sourceTree = "<group>"; };
 		4FCD4F0E2C5B7A9A0069C295 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4FCD4F102C5B80E10069C295 /* PokemonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
+		4FCD4F122C5BBD090069C295 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		4FCD4F142C5C97060069C295 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				4FCD4F0E2C5B7A9A0069C295 /* MainViewModel.swift */,
+				4FCD4F142C5C97060069C295 /* DetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				4FCD4EDA2C5B5B3D0069C295 /* MainViewController.swift */,
+				4FCD4F122C5BBD090069C295 /* DetailViewController.swift */,
 				4FCD4F102C5B80E10069C295 /* PokemonCell.swift */,
 			);
 			path = Views;
@@ -214,8 +220,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FCD4F132C5BBD090069C295 /* DetailViewController.swift in Sources */,
 				4FCD4F0F2C5B7A9A0069C295 /* MainViewModel.swift in Sources */,
 				4FCD4F0B2C5B658E0069C295 /* Pokemon.swift in Sources */,
+				4FCD4F152C5C97060069C295 /* DetailViewModel.swift in Sources */,
 				4FCD4EF12C5B5DA60069C295 /* NetworkManager.swift in Sources */,
 				4FCD4F112C5B80E10069C295 /* PokemonCell.swift in Sources */,
 				4FCD4EDB2C5B5B3D0069C295 /* MainViewController.swift in Sources */,
@@ -372,6 +380,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -399,6 +408,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

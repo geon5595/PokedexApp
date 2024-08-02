@@ -15,7 +15,7 @@ class MainViewModel {
   private var limit = 20
   private var offset = 0
   init() {
-    
+    fetchPokemonData()
   }
   
   func fetchPokemonData() {
