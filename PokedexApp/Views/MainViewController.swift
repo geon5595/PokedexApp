@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
   private let mainViewModel = MainViewModel()
   private let detailViewModel = DetailViewModel()
   private var pokemon = [Pokemon]()
+  var onNext: ((Int, Data?) -> Void)?
   
   private let pokeballImage: UIImageView = {
     let imageView = UIImageView()
@@ -74,15 +75,17 @@ class MainViewController: UIViewController {
   }
 }
 
-extension UIColor {
-  static let mainRed = UIColor(red: 190/255, green: 30/255, blue: 40/255, alpha: 1.0)
-  static let darkRed = UIColor(red: 120/255, green: 30/255, blue: 30/255, alpha: 1.0)
-  static let cellBackground = UIColor(red: 245/255, green: 245/255, blue: 235/255, alpha: 1.0)
-}
-
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    self.navigationController?.pushViewController(DetailViewController(), animated: true)
+    guard let cell = collectionView.cellForItem(at: indexPath) as? PokemonCell else { return }
+    if let pokemonImage = cell.imageView.image {
+      if let imageData = pokemonImage.pngData() {
+        let pokemonNumber = indexPath.row
+          onNext?(pokemonNumber, imageData)
+        detailViewModel.fetchPokemonData(at: indexPath.row)
+      }
+    }
+    
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

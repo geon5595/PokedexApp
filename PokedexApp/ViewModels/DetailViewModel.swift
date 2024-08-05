@@ -11,7 +11,7 @@ import RxSwift
 class DetailViewModel {
   private let disposeBag = DisposeBag()
   
-  let pokemonDetailSubject = BehaviorSubject<PokemonDetails?>(value: nil)
+  let pokemonDetailSubject = PublishSubject<PokemonDetails>()
   
   init() {
   }

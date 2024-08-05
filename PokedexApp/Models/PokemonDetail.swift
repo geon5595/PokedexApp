@@ -8,16 +8,16 @@
 import Foundation
 
 struct PokemonDetails: Decodable {
-    let name: String
-    let height: Int
-    let weight: Int
-    let types: [PokemonTypeSlot]
+  let name: String
+  let height: Int
+  let weight: Int
+  let types: [PokemonTypeSlot]
 }
 
 struct PokemonTypeSlot: Decodable {
-    let type: PokemonType
+  let type: PokemonType
 }
 
 struct PokemonType: Decodable {
-    let name: String
+  let name: String
 }
