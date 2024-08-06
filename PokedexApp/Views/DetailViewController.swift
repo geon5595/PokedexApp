@@ -17,7 +17,6 @@ class DetailViewController: UIViewController {
   var receivedPokemonNumber: Int?
   var receivedImage: Data?
   
-
   private lazy var detailView: DetailView = {
     let detailView = DetailView()
     detailView.layer.cornerRadius = 10
@@ -27,13 +26,11 @@ class DetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     configurUI()
-    if let pokemonNumber = receivedPokemonNumber {
-      detailViewModel.fetchPokemonData(at: pokemonNumber)
-    }
     bind()
   }
   
   private func bind() {
+    detailViewModel.fetchPokemonData(at: receivedPokemonNumber!)
     detailViewModel.pokemonDetailSubject
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] pokemonData in
@@ -42,7 +39,6 @@ class DetailViewController: UIViewController {
         print("error")
       }).disposed(by: disposeBag)
   }
-    
   private func updateDetailView(with pokemonData: PokemonDetails) {
     let pokemonKoreanName = PokemonTranslator.getKoreanName(for: pokemonData.name)
     let pokemonKoreanType = PokemonTypeName(rawValue: pokemonData.types[0].type.name)!.displayName 

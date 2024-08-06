@@ -13,9 +13,6 @@ class DetailViewModel {
   
   let pokemonDetailSubject = PublishSubject<PokemonDetails>()
   
-  init() {
-  }
-  
   func fetchPokemonData(at index: Int) {
     let pokemonNumber = String(index + 1)
     guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemonNumber)/") else {

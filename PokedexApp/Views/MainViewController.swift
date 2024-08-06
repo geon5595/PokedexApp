@@ -28,6 +28,9 @@ class MainViewController: UIViewController {
   private lazy var collectionView: UICollectionView = {
     let flowLayout = UICollectionViewFlowLayout()
     flowLayout.scrollDirection = .vertical
+    flowLayout.itemSize = CGSize(width: view.frame.size.width / 3.4,
+                                 height: view.frame.size.width / 3.4)
+    flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     collectionView.register(PokemonCell.self, forCellWithReuseIdentifier: PokemonCell.id)
     collectionView.delegate = self
@@ -41,14 +44,13 @@ class MainViewController: UIViewController {
     view.backgroundColor = .mainRed
     configureUI()
     bind()
-    
   }
   
   private func bind() {
     mainViewModel.pokemonSubject
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] pokemons in
-        self?.pokemon = pokemons
+        self?.pokemon += pokemons
         self?.collectionView.reloadData()
       }, onError: { error in
         print("error")
@@ -75,17 +77,15 @@ class MainViewController: UIViewController {
   }
 }
 
-extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     guard let cell = collectionView.cellForItem(at: indexPath) as? PokemonCell else { return }
     if let pokemonImage = cell.imageView.image {
       if let imageData = pokemonImage.pngData() {
         let pokemonNumber = indexPath.row
           onNext?(pokemonNumber, imageData)
-        detailViewModel.fetchPokemonData(at: indexPath.row)
       }
     }
-    
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,6 +93,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
       return UICollectionViewCell()
     }
     cell.configure(with: pokemon[indexPath.row])
+    print(indexPath.row)
     return cell
   }
   
@@ -100,22 +101,14 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     return pokemon.count
   }
   
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return 10
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    return 10
-  }
-  
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let width = (collectionView.frame.width - 40) / 3
-    let size = CGSize(width: width, height: width)
-    return size
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    print(scrollView.contentOffset)
+    let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+    print(scrollView.contentSize.height)
+    print(maxOffset)
+    if scrollView.contentOffset.y > maxOffset {
+      mainViewModel.fetchPokemonData()
+    }
   }
 }
+

@@ -210,8 +210,3 @@ enum PokemonTypeName: String, CaseIterable, Codable {
     }
   }
 }
-/* 사용 예시
- let pokemonName = "Pikachu"
- let koreanName = PokemonTranslator.getKoreanName(for: pokemonName)
- print("\(pokemonName)의 한국어 이름: \(koreanName)")
- */

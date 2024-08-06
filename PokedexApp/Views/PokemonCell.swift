@@ -30,9 +30,13 @@ class PokemonCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    imageView.image = nil
+  }
+  
   func configure(with pokemon: Pokemon) {
     guard let pokemonID = pokemon.url.split(separator: "/").last else { return }
-    print(pokemonID)
     let urlString =  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonID).png"
     guard let url = URL(string: urlString) else { return }
     

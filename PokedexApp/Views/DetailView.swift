@@ -21,20 +21,14 @@ class DetailView: UIView {
   }()
   private let pokemonType: UILabel = {
     let Label = UILabel()
-    Label.font = UIFont.boldSystemFont(ofSize: 18)
-    Label.textColor = .white
     return Label
   }()
   private let pokemonHeight: UILabel = {
     let Label = UILabel()
-    Label.font = UIFont.boldSystemFont(ofSize: 18)
-    Label.textColor = .white
     return Label
   }()
   private let pokemonWeight: UILabel = {
     let Label = UILabel()
-    Label.font = UIFont.boldSystemFont(ofSize: 18)
-    Label.textColor = .white
     return Label
   }()
 
@@ -57,6 +51,14 @@ class DetailView: UIView {
       pokemonHeight,
       pokemonWeight
     ].forEach { self.addSubview($0) }
+    [
+      pokemonType,
+      pokemonHeight,
+      pokemonWeight
+    ].forEach {
+      $0.font = UIFont.boldSystemFont(ofSize: 18)
+      $0.textColor = .white
+    }
 
     pokemonImageView.snp.makeConstraints {
       $0.top.equalToSuperview().inset(30)
