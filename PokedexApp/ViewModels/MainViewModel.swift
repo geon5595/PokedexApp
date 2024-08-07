@@ -22,11 +22,14 @@ class MainViewModel {
     }
     
     NetworkManager.shared.fetch(url: url)
-      .subscribe(onSuccess: { [weak self] (pokemonresponse: PokemonResponse) in
-        self?.pokemonSubject.onNext(pokemonresponse.results)
-        self?.urlString = pokemonresponse.next ?? ""
-      }, onFailure:  { [weak self] error in
+      .subscribe(onSuccess: { [weak self] (pokemonResponse: PokemonResponse) in
+        var currentPokemon = try? self?.pokemonSubject.value() ?? []
+        currentPokemon?.append(contentsOf: pokemonResponse.results)
+        self?.pokemonSubject.onNext(currentPokemon ?? [])
+        self?.urlString = pokemonResponse.next ?? ""
+      }, onFailure: { [weak self] error in
         self?.pokemonSubject.onError(NetworkError.decodingFail)
-      }).disposed(by: disposeBag)
+      })
+      .disposed(by: disposeBag)
   }
 }

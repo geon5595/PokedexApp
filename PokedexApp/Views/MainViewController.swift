@@ -7,13 +7,13 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import SnapKit
 
 class MainViewController: UIViewController {
 
   private let disposeBag = DisposeBag()
   private let mainViewModel = MainViewModel()
-  private let detailViewModel = DetailViewModel()
   private var pokemon = [Pokemon]()
   private var isLoading = false
   var onNext: ((String, Data?) -> Void)?
@@ -34,8 +34,6 @@ class MainViewController: UIViewController {
     flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     collectionView.register(PokemonCell.self, forCellWithReuseIdentifier: PokemonCell.id)
-    collectionView.delegate = self
-    collectionView.dataSource = self
     collectionView.backgroundColor = .darkRed
     return collectionView
   }()
@@ -48,14 +46,40 @@ class MainViewController: UIViewController {
   }
   
   private func bind() {
+    let pokemonObservable = mainViewModel.pokemonSubject
+      .observe(on: MainScheduler.instance)
+    
+    pokemonObservable
+      .bind(to: collectionView.rx.items(cellIdentifier: PokemonCell.id, cellType: PokemonCell.self)) { index, pokemon, cell in
+        cell.configure(with: pokemon)
+      }.disposed(by: disposeBag)
+    
+    collectionView.rx.itemSelected
+      .subscribe(onNext: { [weak self] indexPath in
+        guard let cell = self?.collectionView.cellForItem(at: indexPath) as? PokemonCell else { return }
+        if let pokemonImage = cell.imageView.image {
+          if let imageData = pokemonImage.pngData() {
+            let pokemonUrl = self?.pokemon[indexPath.row].url
+            self?.onNext?(pokemonUrl!, imageData)
+          }
+        }
+      }).disposed(by: disposeBag)
+    
+    collectionView.rx.contentOffset
+      .subscribe(onNext: { [weak self] contentOffset in
+        guard let self = self else { return }
+        let maxOffset = self.collectionView.contentSize.height - self.collectionView.frame.size.height
+        if contentOffset.y > maxOffset && !self.isLoading {
+          self.isLoading = true
+          self.mainViewModel.fetchPokemonData()
+        }
+      }).disposed(by: disposeBag)
+    
     mainViewModel.pokemonSubject
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] pokemons in
-        self?.pokemon += pokemons
+        self?.pokemon = pokemons
         self?.collectionView.reloadData()
-        self?.isLoading = false
-      }, onError: { [weak self] error in
-        print("error")
         self?.isLoading = false
       }).disposed(by: disposeBag)
   }
@@ -76,42 +100,6 @@ class MainViewController: UIViewController {
       $0.top.equalTo(pokeballImage.snp.bottom).offset(20)
       $0.horizontalEdges.equalToSuperview()
       $0.bottom.equalToSuperview().inset(50)
-    }
-  }
-}
-
-extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    guard let cell = collectionView.cellForItem(at: indexPath) as? PokemonCell else { return }
-    if let pokemonImage = cell.imageView.image {
-      if let imageData = pokemonImage.pngData() {
-        let pokemonUrl = pokemon[indexPath.row].url
-          onNext?(pokemonUrl, imageData)
-      }
-    }
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonCell.id, for: indexPath) as? PokemonCell else {
-      return UICollectionViewCell()
-    }
-    cell.configure(with: pokemon[indexPath.row])
-    print(indexPath.row)
-    return cell
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return pokemon.count
-  }
-  
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    print(scrollView.contentOffset)
-    let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height - 300
-    print(scrollView.contentSize.height)
-    print(maxOffset)
-    if scrollView.contentOffset.y > maxOffset && !isLoading {
-      isLoading = true
-      mainViewModel.fetchPokemonData()
     }
   }
 }
