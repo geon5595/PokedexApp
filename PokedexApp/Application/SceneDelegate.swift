@@ -16,9 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     
     let firstViewController = MainViewController()
-    firstViewController.onNext = { number, image in
+    firstViewController.onNext = { string, image in
       let secondViewController = DetailViewController()
-      secondViewController.receivedPokemonNumber = number
+      secondViewController.receivedPokemonUrl = string
       secondViewController.receivedImage = image
       firstViewController.navigationController?.pushViewController(secondViewController, animated: true)
     }

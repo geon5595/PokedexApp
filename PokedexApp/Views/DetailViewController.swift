@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
   private let detailViewModel = DetailViewModel()
   private let disposeBag = DisposeBag()
 
-  var receivedPokemonNumber: Int?
+  var receivedPokemonUrl: String?
   var receivedImage: Data?
   
   private lazy var detailView: DetailView = {
@@ -30,7 +30,7 @@ class DetailViewController: UIViewController {
   }
   
   private func bind() {
-    detailViewModel.fetchPokemonData(at: receivedPokemonNumber!)
+    detailViewModel.fetchPokemonData(receivedPokemonUrl!)
     detailViewModel.pokemonDetailSubject
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] pokemonData in
@@ -41,9 +41,10 @@ class DetailViewController: UIViewController {
   }
   private func updateDetailView(with pokemonData: PokemonDetails) {
     let pokemonKoreanName = PokemonTranslator.getKoreanName(for: pokemonData.name)
-    let pokemonKoreanType = PokemonTypeName(rawValue: pokemonData.types[0].type.name)!.displayName 
+    let pokemonKoreanType = PokemonTypeName(rawValue: pokemonData.types[0].type.name)!.displayName
+    guard let pokemonNumber = receivedPokemonUrl!.split(separator: "/").last else { return }
     detailView.setPokemonImageView(UIImage(data: receivedImage!) ?? UIImage())
-    detailView.setPokemonName(receivedPokemonNumber!, pokemonKoreanName)
+    detailView.setPokemonName(String(pokemonNumber), pokemonKoreanName)
     detailView.setPokemonType(pokemonKoreanType)
     detailView.setPokemonHeight(Double(pokemonData.height) / 10)
     detailView.setPokemonWeight(Double(pokemonData.weight) / 10)

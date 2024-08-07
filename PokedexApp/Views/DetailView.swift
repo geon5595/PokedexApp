@@ -69,8 +69,8 @@ class DetailView: UIView {
     pokemonName.snp.makeConstraints {
       $0.top.equalTo(pokemonImageView.snp.bottom).offset(5)
       $0.centerX.equalToSuperview()
-
     }
+    
     pokemonType.snp.makeConstraints {
       $0.top.equalTo(pokemonName.snp.bottom).offset(15)
       $0.centerX.equalToSuperview()
@@ -92,8 +92,8 @@ class DetailView: UIView {
     pokemonImageView.image = image
   }
   
-  func setPokemonName(_ pokemonNumber: Int, _ name: String) {
-    pokemonName.text = "No.\(String(pokemonNumber + 1)) \(name)"
+  func setPokemonName(_ pokemonNumber: String, _ name: String) {
+    pokemonName.text = "No.\(pokemonNumber) \(name)"
   }
   
   func setPokemonType(_ type: String) {

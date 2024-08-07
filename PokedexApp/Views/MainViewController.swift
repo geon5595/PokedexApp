@@ -15,7 +15,8 @@ class MainViewController: UIViewController {
   private let mainViewModel = MainViewModel()
   private let detailViewModel = DetailViewModel()
   private var pokemon = [Pokemon]()
-  var onNext: ((Int, Data?) -> Void)?
+  private var isLoading = false
+  var onNext: ((String, Data?) -> Void)?
   
   private let pokeballImage: UIImageView = {
     let imageView = UIImageView()
@@ -52,8 +53,10 @@ class MainViewController: UIViewController {
       .subscribe(onNext: { [weak self] pokemons in
         self?.pokemon += pokemons
         self?.collectionView.reloadData()
-      }, onError: { error in
+        self?.isLoading = false
+      }, onError: { [weak self] error in
         print("error")
+        self?.isLoading = false
       }).disposed(by: disposeBag)
   }
   
@@ -82,8 +85,8 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     guard let cell = collectionView.cellForItem(at: indexPath) as? PokemonCell else { return }
     if let pokemonImage = cell.imageView.image {
       if let imageData = pokemonImage.pngData() {
-        let pokemonNumber = indexPath.row
-          onNext?(pokemonNumber, imageData)
+        let pokemonUrl = pokemon[indexPath.row].url
+          onNext?(pokemonUrl, imageData)
       }
     }
   }
@@ -103,10 +106,11 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     print(scrollView.contentOffset)
-    let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+    let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height - 300
     print(scrollView.contentSize.height)
     print(maxOffset)
-    if scrollView.contentOffset.y > maxOffset {
+    if scrollView.contentOffset.y > maxOffset && !isLoading {
+      isLoading = true
       mainViewModel.fetchPokemonData()
     }
   }

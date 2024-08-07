@@ -12,10 +12,9 @@ class DetailViewModel {
   private let disposeBag = DisposeBag()
   
   let pokemonDetailSubject = PublishSubject<PokemonDetails>()
-  
-  func fetchPokemonData(at index: Int) {
-    let pokemonNumber = String(index + 1)
-    guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemonNumber)/") else {
+  func fetchPokemonData(_ url: String) {
+    let urlString = url
+    guard let url = URL(string: urlString) else {
       pokemonDetailSubject.onError(NetworkError.invalidUrl)
       return
     }
