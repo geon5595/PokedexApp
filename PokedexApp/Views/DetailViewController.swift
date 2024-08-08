@@ -31,7 +31,7 @@ class DetailViewController: UIViewController {
   
   private func bind() {
     detailViewModel.fetchPokemonData(receivedPokemonUrl!)
-    detailViewModel.pokemonDetailSubject
+    detailViewModel.pokemonDetailRelay
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] pokemonData in
         self?.updateDetailView(with: pokemonData)

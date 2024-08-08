@@ -7,22 +7,18 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class DetailViewModel {
   private let disposeBag = DisposeBag()
   
-  let pokemonDetailSubject = PublishSubject<PokemonDetails>()
+  let pokemonDetailRelay = PublishRelay<PokemonDetails>()
   func fetchPokemonData(_ url: String) {
     let urlString = url
-    guard let url = URL(string: urlString) else {
-      pokemonDetailSubject.onError(NetworkError.invalidUrl)
-      return
-    }
+    guard let url = URL(string: urlString) else { return }
     NetworkManager.shared.fetch(url: url)
       .subscribe(onSuccess: { [weak self] (pokemonDetail: PokemonDetails) in
-        self?.pokemonDetailSubject.onNext(pokemonDetail)
-      }, onFailure:  { [weak self] error in
-        self?.pokemonDetailSubject.onError(NetworkError.decodingFail)
+        self?.pokemonDetailRelay.accept(pokemonDetail)
       }).disposed(by: disposeBag)
   }
 }

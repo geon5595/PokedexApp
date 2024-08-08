@@ -46,7 +46,7 @@ class MainViewController: UIViewController {
   }
   
   private func bind() {
-    let pokemonObservable = mainViewModel.pokemonSubject
+    let pokemonObservable = mainViewModel.pokemonRelay
       .observe(on: MainScheduler.instance)
     
     pokemonObservable
@@ -75,7 +75,7 @@ class MainViewController: UIViewController {
         }
       }).disposed(by: disposeBag)
     
-    mainViewModel.pokemonSubject
+    mainViewModel.pokemonRelay
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] pokemons in
         self?.pokemon = pokemons
