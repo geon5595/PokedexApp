@@ -25,6 +25,7 @@ class MainViewModel {
         currentPokemon.append(contentsOf: pokemonResponse.results)
         self?.pokemonRelay.accept(currentPokemon)
         self?.urlString = pokemonResponse.next ?? ""
-      }).disposed(by: disposeBag)
+      })
+      .disposed(by: disposeBag)
   }
 }

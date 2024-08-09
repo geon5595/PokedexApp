@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PokemonCell: UICollectionViewCell {
   
@@ -40,15 +41,7 @@ class PokemonCell: UICollectionViewCell {
     let urlString =  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonID).png"
     guard let url = URL(string: urlString) else { return }
     
-    DispatchQueue.global().async { [weak self] in
-      if let data = try? Data(contentsOf: url) {
-        if let image = UIImage(data: data) {
-          DispatchQueue.main.async {
-            self?.imageView.image = image
-          }
-        }
-      }
-    }
+    imageView.kf.setImage(with: url)
   }
   
 }

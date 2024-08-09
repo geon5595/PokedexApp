@@ -28,6 +28,7 @@
 		4FCD4F182C5CA3BD0069C295 /* ExtensionUiColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F172C5CA3BD0069C295 /* ExtensionUiColor.swift */; };
 		4FCD4F1A2C5CAD9F0069C295 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F192C5CAD9F0069C295 /* DetailView.swift */; };
 		4FCD4F1C2C60CB150069C295 /* PokemonTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD4F1B2C60CB150069C295 /* PokemonTranslator.swift */; };
+		4FCD4F242C6605D40069C295 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCD4F232C6605D40069C295 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 			files = (
 				4FCD4EF82C5B5F690069C295 /* RxRelay in Frameworks */,
 				4FCD4F022C5B60090069C295 /* Alamofire in Frameworks */,
+				4FCD4F242C6605D40069C295 /* Kingfisher in Frameworks */,
 				4FCD4EF62C5B5F690069C295 /* RxCocoa in Frameworks */,
 				4FCD4EFA2C5B5F690069C295 /* RxSwift in Frameworks */,
 				4FCD4EF42C5B5F690069C295 /* RxBlocking in Frameworks */,
@@ -177,6 +179,7 @@
 				4FCD4EF92C5B5F690069C295 /* RxSwift */,
 				4FCD4EFC2C5B5F760069C295 /* SnapKit */,
 				4FCD4F012C5B60090069C295 /* Alamofire */,
+				4FCD4F232C6605D40069C295 /* Kingfisher */,
 			);
 			productName = PokedexApp;
 			productReference = 4FCD4ED32C5B5B3D0069C295 /* PokedexApp.app */;
@@ -210,6 +213,7 @@
 				4FCD4EF22C5B5F690069C295 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				4FCD4EFB2C5B5F760069C295 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4FCD4F002C5B60090069C295 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4FCD4F222C6605D40069C295 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 4FCD4ED42C5B5B3D0069C295 /* Products */;
 			projectDirPath = "";
@@ -490,6 +494,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		4FCD4F222C6605D40069C295 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -522,6 +534,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4FCD4F002C5B60090069C295 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		4FCD4F232C6605D40069C295 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4FCD4F222C6605D40069C295 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
